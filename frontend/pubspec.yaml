@@ -1,0 +1,47 @@
+name: agri_data_mobile
+description: A new Flutter project.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.8.1
+
+dependencies:
+  syncfusion_flutter_charts: ^23.2.7 # or latest version
+  syncfusion_flutter_core: ^23.2.7   # must match charts version
+  flutter:
+    sdk: flutter
+  intl: ^0.18.1
+  cupertino_icons: ^1.0.8
+
+  # 🔌 Connexion API + MQTT + Auth
+  http: ^1.2.1
+  mqtt_client: ^10.10.0
+  shared_preferences: ^2.2.1
+  provider: ^6.1.1
+  flutter_dotenv: ^5.1.0
+
+  # 📊 Visualisation des données
+  fl_chart: ^0.64.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+  
+  assets:
+    - assets/fonts/Roboto-Regular.ttf
+    - assets/fonts/Roboto-Bold.ttf
+    - assets/images/agri_logo.png
+    - assets/images/google_icon.png
+    - assets/images/facebook_icon.jpg
+
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto-Regular.ttf
+        - asset: assets/fonts/Roboto-Bold.ttf
+          weight: 700
