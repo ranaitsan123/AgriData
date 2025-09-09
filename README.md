@@ -116,11 +116,11 @@ Example Node-RED flow:
 
 | Screen | Preview |  
 |--------|---------|  
-| **Login** | <img width="279" height="576" alt="Image" src="https://github.com/user-attachments/assets/53a105d5-5413-4305-9c11-9ee1293646ce" /> |  
-| **Register** | ![Register Screen](frontend/assets/screens/register.png) |  
-| **Dashboard** | ![Dashboard Screen](frontend/assets/screens/dashboard.png) |  
-| **Alerts** | ![Alerts Screen](frontend/assets/screens/alerts.png) |  
-| **Profile** | ![Profile Screen](frontend/assets/screens/profile.png) |  
+| **Login** | <img width="305" height="638" alt="Image" src="https://github.com/user-attachments/assets/cb635f23-6660-43db-a800-67963249b500" /> |  
+| **Register** | <img width="299" height="664" alt="Image" src="https://github.com/user-attachments/assets/dddf90d9-bbbc-49c2-8b68-eb071ba00d67" /> |  
+| **Dashboard** | <img width="340" height="731" alt="Image" src="https://github.com/user-attachments/assets/95f1cb20-fc91-45fc-872c-bf85a3daa438" /> |  
+| **Alerts** | <img width="278" height="611" alt="Image" src="https://github.com/user-attachments/assets/58c0b82f-58db-402e-b408-22824562015c" /> |  
+| **History** | <img width="279" height="576" alt="Image" src="https://github.com/user-attachments/assets/53a105d5-5413-4305-9c11-9ee1293646ce" /> |  
 
 ---
 
