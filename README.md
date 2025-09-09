@@ -1,6 +1,6 @@
 # 🌱 AgriData – IoT Smart Agriculture Platform  
 
-AgriData is an IoT-based smart agriculture solution that collects real-time sensor data, detects anomalies, and provides farmers with alerts and control capabilities. The system integrates an **Express.js backend**, **PostgreSQL database**, **MQTT broker (HiveMQ)**, and a **Flutter mobile app** frontend.  
+AgriData is an IoT-based smart agriculture solution that collects real-time sensor data, detects anomalies, and provides farmers with alerts and control capabilities. The system integrates an **Express.js backend**, **PostgreSQL database**, **MQTT broker (HiveMQ)**, **Node-RED for IoT data flow**, and a **Flutter mobile app** frontend.  
 
 ---
 
@@ -60,12 +60,42 @@ AgriData/
 
 ---
 
+## 🌐 System Architecture  
+
+```
+   ┌─────────────┐        MQTT         ┌──────────────┐
+   │   Node-RED  │  ─────────────────▶ │  HiveMQ Cloud │
+   │ (Local IoT) │   agri/data,alerts  │   Broker      │
+   └─────────────┘                     └───────▲──────┘
+                                                │
+                                     agri/control│
+                                                │
+                                        ┌───────┴──────┐
+                                        │   Backend    │
+                                        │ (Express.js) │
+                                        └───────▲──────┘
+                                                │ REST API
+                                                │
+                                       ┌────────┴─────────┐
+                                       │   Flutter App    │
+                                       │ (Android/iOS)    │
+                                       └──────────────────┘
+```
+
+### Explanation  
+- **Node-RED (Local)**: Collects sensor data (simulated or real) and publishes to MQTT topics (`agri/data`, `agri/alerts`).  
+- **HiveMQ Cloud Broker**: Acts as the messaging hub between IoT devices, backend, and control commands.  
+- **Backend (Express.js)**: Subscribes to broker topics, stores alerts in PostgreSQL, and exposes secure REST APIs.  
+- **Flutter App**: Fetches sensor data, alert history, and allows the user to send **control actions**, which get published back to Node-RED through the broker (`agri/control`).  
+
+---
+
 ## ⚙️ Technologies  
 
 - **Backend**: Node.js (Express.js), PostgreSQL, JWT, Bcrypt, MQTT.js  
 - **Frontend**: Flutter (Dart), SharedPreferences, HTTP  
 - **Database**: PostgreSQL 15 (Dockerized)  
-- **Messaging**: MQTT (HiveMQ Cloud)  
+- **Messaging**: MQTT (HiveMQ Cloud, Node-RED local publisher)  
 - **Deployment**: Docker, Docker Compose  
 - **Extras**: Ngrok (for tunneling backend API)  
 
