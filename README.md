@@ -116,7 +116,7 @@ Example Node-RED flow:
 
 | Screen | Preview |  
 |--------|---------|  
-| **Login** | ![Login Screen](frontend/assets/screens/login.png) |  
+| **Login** | <img width="279" height="576" alt="Image" src="https://github.com/user-attachments/assets/53a105d5-5413-4305-9c11-9ee1293646ce" /> |  
 | **Register** | ![Register Screen](frontend/assets/screens/register.png) |  
 | **Dashboard** | ![Dashboard Screen](frontend/assets/screens/dashboard.png) |  
 | **Alerts** | ![Alerts Screen](frontend/assets/screens/alerts.png) |  
