@@ -1,141 +1,88 @@
-# 🌱 AgriData – IoT Smart Agriculture Platform  
+# 🌱 AgriData IoT Platform
 
-AgriData is an IoT-based smart agriculture solution that collects real-time sensor data, detects anomalies, and provides farmers with alerts and control capabilities. The system integrates an **Express.js backend**, **PostgreSQL database**, **MQTT broker (HiveMQ)**, **Node-RED for IoT data flow**, and a **Flutter mobile app** frontend.  
-
----
-
-## 🚀 Features  
-
-### 📡 IoT Integration  
-- Real-time sensor data collection via **MQTT** (`agri/data` topic).  
-- Alerts published via **MQTT** (`agri/alerts` topic).  
-- Control actions sent back to IoT devices (`agri/control` topic).  
-
-### 🔐 Authentication  
-- User registration & login with **JWT tokens**.  
-- Logout with **token blacklisting** for security.  
-- Protected APIs requiring authentication.  
-
-### 📊 Backend APIs  
-- **/register** → Create account.  
-- **/login** → Authenticate user and receive token.  
-- **/logout** → Blacklist current token.  
-- **/profile** → Fetch user profile.  
-- **/data** → Get latest real-time sensor data.  
-- **/alerts/active** → Get latest unhandled alerts.  
-- **/alerts/history** → Get full alerts history.  
-- **/alerts/:id** → Mark alert as handled & publish control command.  
-
-### 📱 Mobile App (Flutter)  
-- Login / Register screens.  
-- Real-time dashboard with sensor readings.  
-- Graphs and history visualization.  
-- Alerts with ability to send control actions.  
-- Light/dark theme support.  
+AgriData is an IoT-based smart agriculture monitoring system that collects sensor data via **Node-RED**, transmits it through an **MQTT broker (HiveMQ Cloud)**, stores alerts in a **PostgreSQL database**, and provides a secure **backend (Node.js + Express)** with a **Flutter mobile app frontend** for farmers to monitor and control devices.
 
 ---
 
-## 🏗️ Project Structure  
+## 🚀 Features
 
-```
-AgriData/
-├── backend/                 # Node.js + Express backend
-│   ├── index.js             # Main server
-│   ├── db.js                # PostgreSQL connection
-│   ├── Dockerfile           # Backend container
-│   ├── package.json
-│   └── wait-for.sh
-├── frontend/                # Flutter mobile app
-│   ├── lib/
-│   │   ├── models/          # Data models (User)
-│   │   ├── providers/       # Theme provider
-│   │   ├── screens/         # UI pages (login, dashboard, alerts, etc.)
-│   │   ├── services/        # API service (REST calls to backend)
-│   │   └── widgets/         # Reusable UI components
-│   ├── pubspec.yaml
-│   └── README.md
-├── docker-compose.yml       # Multi-service setup
-└── .env                     # Environment variables
-```
+### Backend (Node.js + Express + PostgreSQL)
+- User authentication (Register, Login, Logout with JWT)
+- Token blacklisting for secure logout
+- Secure password hashing with bcrypt
+- Profile management
+- Real-time MQTT integration (HiveMQ Cloud broker)
+- Store and retrieve alerts (active + history)
+- Control devices via MQTT publish (e.g., irrigation pumps)
+- Dockerized backend with PostgreSQL
 
----
+### Frontend (Flutter)
+- User registration & login
+- Dashboard with sensor data
+- Alerts (active & history)
+- Graphs & visualization of sensor data
+- Settings & profile management
+- Dark/Light theme toggle
 
-## 🌐 System Architecture  
-
-```
-   ┌─────────────┐        MQTT         ┌──────────────┐
-   │   Node-RED  │  ─────────────────▶ │  HiveMQ Cloud │
-   │ (Local IoT) │   agri/data,alerts  │   Broker      │
-   └─────────────┘                     └───────▲──────┘
-                                                │
-                                     agri/control│
-                                                │
-                                        ┌───────┴──────┐
-                                        │   Backend    │
-                                        │ (Express.js) │
-                                        └───────▲──────┘
-                                                │ REST API
-                                                │
-                                       ┌────────┴─────────┐
-                                       │   Flutter App    │
-                                       │ (Android/iOS)    │
-                                       └──────────────────┘
-```
-
-### Explanation  
-- **Node-RED (Local)**: Collects sensor data (simulated or real) and publishes to MQTT topics (`agri/data`, `agri/alerts`).  
-- **HiveMQ Cloud Broker**: Acts as the messaging hub between IoT devices, backend, and control commands.  
-- **Backend (Express.js)**: Subscribes to broker topics, stores alerts in PostgreSQL, and exposes secure REST APIs.  
-- **Flutter App**: Fetches sensor data, alert history, and allows the user to send **control actions**, which get published back to Node-RED through the broker (`agri/control`).  
+### IoT & MQTT
+- Node-RED flows running locally collect and process sensor data
+- Data published to HiveMQ MQTT broker on topics:
+  - `agri/data` → real-time sensor values
+  - `agri/alerts` → alerts triggered by abnormal conditions
+  - `agri/control` → commands from mobile app to actuators
 
 ---
 
-## ⚙️ Technologies  
+## 🛠️ Tech Stack
 
-- **Backend**: Node.js (Express.js), PostgreSQL, JWT, Bcrypt, MQTT.js  
-- **Frontend**: Flutter (Dart), SharedPreferences, HTTP  
-- **Database**: PostgreSQL 15 (Dockerized)  
-- **Messaging**: MQTT (HiveMQ Cloud, Node-RED local publisher)  
-- **Deployment**: Docker, Docker Compose  
-- **Extras**: Ngrok (for tunneling backend API)  
+- **Backend**: Node.js, Express.js, PostgreSQL, MQTT.js, JWT, Bcrypt
+- **Frontend**: Flutter (Dart)
+- **Database**: PostgreSQL
+- **IoT**: Node-RED + HiveMQ MQTT Broker
+- **DevOps**: Docker & Docker Compose
+- **DevSecOps Improvements**:
+  - Used environment variables for secrets (`.env` file not committed)
+  - JWT blacklisting for secure logout
+  - Database health checks in `docker-compose.yml`
+  - Enforced CORS and HTTPS-ready deployment
+  - Plan to integrate **OWASP ZAP CI/CD security scans**
+  - Plan to add **Snyk / Trivy** scans for dependencies & Docker images
 
 ---
 
-## 🛠️ Setup Instructions  
+## ⚙️ Installation & Setup
 
-### 1. Clone repository  
+### 1. Clone the repository
 ```bash
-git clone https://github.com/your-username/AgriData.git
+git clone https://github.com/your-org/AgriData.git
 cd AgriData
 ```
 
-### 2. Configure Environment Variables  
-Create a `.env` file in the project root:  
+### 2. Environment variables
+Create a `.env` file in the root directory:
 ```env
 # Database
 DB_HOST=db
 DB_PORT=5432
-DB_USER=youruser
+DB_USER=postgres
 DB_PASSWORD=yourpassword
 DB_NAME=agridata
 
 # JWT
-JWT_SECRET=supersecretjwt
+JWT_SECRET=your_jwt_secret
 
 # MQTT
 MQTT_BROKER=mqtts://broker.hivemq.com:8883
-MQTT_USERNAME=your-hivemq-username
-MQTT_PASSWORD=your-hivemq-password
+MQTT_USERNAME=your_mqtt_username
+MQTT_PASSWORD=your_mqtt_password
 ```
 
-### 3. Run with Docker Compose  
+### 3. Start with Docker
 ```bash
 docker-compose up --build
 ```
-- Backend → http://localhost:5000  
-- Database → localhost:5432  
 
-### 4. Run Frontend (Flutter App)  
+### 4. Run frontend (Flutter app)
 ```bash
 cd frontend
 flutter pub get
@@ -144,46 +91,73 @@ flutter run
 
 ---
 
-## 📱 API Examples  
+## 📡 Node-RED Setup
 
-**Register User**  
-```bash
-POST /register
-{
-  "username": "farmer1",
-  "password": "mypassword"
-}
+- Node-RED runs **locally** to collect sensor data (e.g., soil moisture, temperature, humidity).
+- Data is **published to MQTT broker (HiveMQ Cloud)** on topics:
+  - `agri/data` → sensor values JSON
+  - `agri/alerts` → alert events JSON
+- Backend subscribes to these topics and processes alerts.
+
+Example Node-RED flow:
+- Inject sensor readings (simulated or from real devices)
+- MQTT out node → HiveMQ Cloud
+
+---
+
+## 👨‍💻 Developers  
+
+- **Backend Developer** → [Aicha Lahnite](https://github.com/ranaitsan123)  
+- **Frontend Developer** → [Ikram Amine](https://github.com/your-friend-username)  
+
+---
+
+## 📱 App Screens  
+
+| Screen | Preview |  
+|--------|---------|  
+| **Login** | ![Login Screen](frontend/assets/screens/login.png) |  
+| **Register** | ![Register Screen](frontend/assets/screens/register.png) |  
+| **Dashboard** | ![Dashboard Screen](frontend/assets/screens/dashboard.png) |  
+| **Alerts** | ![Alerts Screen](frontend/assets/screens/alerts.png) |  
+| **Profile** | ![Profile Screen](frontend/assets/screens/profile.png) |  
+
+---
+
+## 📂 Project Structure
+
 ```
-
-**Login**  
-```bash
-POST /login
-{
-  "username": "farmer1",
-  "password": "mypassword"
-}
-```
-
-**Get Sensor Data**  
-```bash
-GET /data
-Authorization: Bearer <token>
+AgriData/
+├── backend/                # Node.js backend
+│   ├── index.js            # Main API server
+│   ├── db.js               # PostgreSQL connection
+│   ├── Dockerfile
+│   ├── package.json
+│   └── wait-for.sh         # Wait for DB before start
+├── frontend/               # Flutter app
+│   ├── lib/
+│   │   ├── models/         # User model
+│   │   ├── providers/      # State management
+│   │   ├── screens/        # UI screens
+│   │   ├── services/       # API service calls
+│   │   └── widgets/        # Reusable UI components
+│   ├── assets/             # Images, icons
+│   └── pubspec.yaml
+├── docker-compose.yml      # Orchestrates backend + DB
+└── README.md
 ```
 
 ---
 
-## 🔮 Future Improvements  
+## 🔮 Future Improvements
 
-- AI-based predictive irrigation system.  
-- Role-based access control (admin, farmer, technician).  
-- Multi-language support in the app.  
-- GraphQL API support.  
-- Integration with cloud IoT platforms (AWS IoT, Azure IoT Hub).  
-- **DevSecOps pipeline**: Automate CI/CD with integrated security checks (linting, unit tests, dependency scanning, vulnerability scanning with tools like **OWASP ZAP**, **Snyk**, or **Trivy**) to ensure secure and reliable deployments.  
+- Add role-based access control (Admin, Farmer, Technician)
+- Push notifications for new alerts on mobile
+- Integration with weather APIs for smarter irrigation
+- AI-based prediction for crop diseases and irrigation schedules
 
 ---
 
-## 👩‍💻 Author  
+## 📜 License
 
-Developed by **Aicha** 🌸  
-Passionate about IoT, Cloud Computing, and Cybersecurity.  
+MIT License © 2025 AgriData Project Team
