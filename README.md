@@ -114,13 +114,13 @@ Example Node-RED flow:
 
 ## 📱 App Screens  
 
-| Screen | Preview |  
-|--------|---------|  
-| **Login** | <img width="305" height="638" alt="Image" src="https://github.com/user-attachments/assets/cb635f23-6660-43db-a800-67963249b500" /> |  
-| **Register** | <img width="299" height="664" alt="Image" src="https://github.com/user-attachments/assets/dddf90d9-bbbc-49c2-8b68-eb071ba00d67" /> |  
-| **Dashboard** | <img width="340" height="731" alt="Image" src="https://github.com/user-attachments/assets/95f1cb20-fc91-45fc-872c-bf85a3daa438" /> |  
-| **Alerts** | <img width="278" height="611" alt="Image" src="https://github.com/user-attachments/assets/58c0b82f-58db-402e-b408-22824562015c" /> |  
-| **History** | <img width="279" height="576" alt="Image" src="https://github.com/user-attachments/assets/53a105d5-5413-4305-9c11-9ee1293646ce" /> |  
+| **Login** | **Register** | **Dashboard** |  
+|-----------|--------------|---------------|  
+| <img width="305" height="638" src="https://github.com/user-attachments/assets/cb635f23-6660-43db-a800-67963249b500" /> | <img width="299" height="664" src="https://github.com/user-attachments/assets/dddf90d9-bbbc-49c2-8b68-eb071ba00d67" /> | <img width="340" height="731" src="https://github.com/user-attachments/assets/95f1cb20-fc91-45fc-872c-bf85a3daa438" /> |  
+
+| **Alerts** | **History** |   |  
+|------------|-------------|---|  
+| <img width="278" height="611" src="https://github.com/user-attachments/assets/58c0b82f-58db-402e-b408-22824562015c" /> | <img width="279" height="576" src="https://github.com/user-attachments/assets/53a105d5-5413-4305-9c11-9ee1293646ce" /> |   |  
 
 ---
 
