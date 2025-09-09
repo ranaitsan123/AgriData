@@ -108,7 +108,7 @@ Example Node-RED flow:
 ## 👨‍💻 Developers  
 
 - **Backend Developer** → [Aicha Lahnite](https://github.com/ranaitsan123)  
-- **Frontend Developer** → [Ikram Amine](https://github.com/your-friend-username)  
+- **Frontend Developer** → [Ikram Amine](https://github.com/IKRAM-iN)  
 
 ---
 
